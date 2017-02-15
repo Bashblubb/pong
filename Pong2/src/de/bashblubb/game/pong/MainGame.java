@@ -11,6 +11,7 @@ public class MainGame extends Applet implements Runnable, KeyListener {
 	Spielbretter sb;
 	Ball b;
 	int width = 700, height = 700;
+	boolean firstIteration = true;
 	
 	//Superklasse: Applet
 	@Override
@@ -31,7 +32,7 @@ public class MainGame extends Applet implements Runnable, KeyListener {
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, width, height);
+		g.fillRect(0, 0, width, height);			
 		sb.draw(g);
 		b.draw(g);
 	}
@@ -46,41 +47,42 @@ public class MainGame extends Applet implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {		
 		//Spieler 1 spielt mit den Knöpfen hoch und runter, Spieler2 mit W und S
 		if(e.getKeyCode() == KeyEvent.VK_UP){
-			sb.setHochKnopfP1(true);
-		}else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-			sb.setRunterKnopfP1(true);
-		}else if(e.getKeyCode() == KeyEvent.VK_W){
 			sb.setHochKnopfP2(true);
-		}else if(e.getKeyCode() == KeyEvent.VK_S){
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			sb.setRunterKnopfP2(true);
+		}else if(e.getKeyCode() == KeyEvent.VK_W){
+			sb.setHochKnopfP1(true);
+		}else if(e.getKeyCode() == KeyEvent.VK_S){
+			sb.setRunterKnopfP1(true);
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP){
-			sb.setHochKnopfP1(false);
-		}else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-			sb.setRunterKnopfP1(false);
-		}else if(e.getKeyCode() == KeyEvent.VK_W){
 			sb.setHochKnopfP2(false);
-		}else if(e.getKeyCode() == KeyEvent.VK_S){
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			sb.setRunterKnopfP2(false);
+		}else if(e.getKeyCode() == KeyEvent.VK_W){
+			sb.setHochKnopfP1(false);
+		}else if(e.getKeyCode() == KeyEvent.VK_S){
+			sb.setRunterKnopfP1(false);
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 	// Beschreibt ausführbaren Code den die Threads parallel ausführen sollen (von IF: Runnable)
 	@Override
 	public void run() {
+		
 		//Endlosschleife lässt das Spiel laufen
 		for(;;){
 			sb.bewegung();	
 			b.bewegung();
+			b.kollision(sb.getY1(), sb.getY2(), sb.getX1(), sb.getX2());
 			//ruft die Paint-Methode auf
 			repaint();
 			//wartet jedesmal 10 Milisekunden bis Spielfeld neu gezeichnet wird
@@ -89,7 +91,7 @@ public class MainGame extends Applet implements Runnable, KeyListener {
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}			
 		}
 	}
 

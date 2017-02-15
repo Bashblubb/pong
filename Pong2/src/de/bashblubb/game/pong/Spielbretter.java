@@ -6,6 +6,7 @@ import java.awt.Graphics;
 public class Spielbretter implements SpielelementIF {
 	int y1, y1Geschwindigkeit;
 	int y2, y2Geschwindigkeit;
+	int x1 = 0, x2 = 680;
 	boolean hochGedrücktP1 = false, runterGedrücktP1 = false;
 	boolean hochGedrücktP2 = false, runterGedrücktP2 = false;
 	final int maxHoeheOben = 0, maxHoeheUnten = 620;
@@ -22,8 +23,25 @@ public class Spielbretter implements SpielelementIF {
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.WHITE);
-		g.fillRect(0, y1, 20, 80);	
-		g.fillRect(680, y2, 20, 80);
+		g.fillRect(x1, y1, 20, 80);	
+		g.fillRect(x2, y2, 20, 80);
+	}
+	
+	public int getY1(){
+		return y1;
+	}
+	
+	public int getY2(){
+		return y2;
+	}
+	
+	public int getX1(){
+		return x1;
+	}
+	
+	public int getX2(){
+		//Ball hat nur 1 X-Wert
+		return x2;
 	}
 	
 	public void setHochKnopfP1(boolean hochKnopf){
