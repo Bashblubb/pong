@@ -48,37 +48,31 @@ public class Ball implements SpielelementIF{
 		y = maxHoeheBall(y);				
 	}
 	
-	public void kollision(int sby1, int sby2, int sbx1, int sbx2){		
-		//if(spielende)
-		x = spielende(x);
-		//else{
-		for (int i = 0; i <= 40; i++) {
+	public boolean spielende(int sby1, int sby2, int sbx1, int sbx2) {
+		if (valSpielende(x)) {
+			return true;
+		} else {
 			if (x == 20) {
-				if (y + i == sby1 || y - i == sby1) {
-					System.out.println("KOLLISION!");
+				if (y <= sby1 + 65 && y >= sby1 - 30) {
+					xGeschwindigkeit = -xGeschwindigkeit;
 				}
-			}else if (x == 680)
-				if (y + i == sby2 || y - i == sby2) {
-					System.out.println("KOLLISION!");
+			} else if (x == 660)
+				if (y <= sby2 + 65 && y >= sby2 - 30) {
+					xGeschwindigkeit = -xGeschwindigkeit;
 				}
+			return false;
 		}
-		// }
 	}
 	
-	public int spielende(int x){
-		if(x <= maxBreiteLinks){
-			x = maxBreiteLinks;
-			//zu Testzwecken prallt der Ball an den Außenwänden ab, später müsste hier das Spiel zuende sein
-			xGeschwindigkeit = -xGeschwindigkeit;
-			//return true;
-		}else if (x >= maxBreiteRechts ){
-			x = maxBreiteRechts;
-			//zu Testzwecken prallt der Ball an den Außenwänden ab, später müsste hier das Spiel zuende sein
-			xGeschwindigkeit = -xGeschwindigkeit;
-			//return true;
-		}
-		return x;
-		//return false;
+	public boolean valSpielende(int x){
+		if(x <= maxBreiteLinks){			
+			return true;		
+		}else if (x >= maxBreiteRechts ){			
+			return true;
+		
+		}else{
+			return false;
+		}		
 	}
 		
 	public int maxHoeheBall(int y){
@@ -90,9 +84,5 @@ public class Ball implements SpielelementIF{
 			yGeschwindigkeit = -yGeschwindigkeit;
 		}		
 		return y;
-	}
-	
-	public boolean kollisionSpielbrett(int y){
-		return true;
 	}
 }
