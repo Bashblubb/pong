@@ -8,6 +8,7 @@ public class Ball implements SpielelementIF{
 	final int maxHoeheOben = 0, maxHoeheUnten = 680;
 	final int maxBreiteLinks = 0, maxBreiteRechts = 680;
 	int sby1 = 0;	
+	int scoreP1 = 0, scoreP2 = 0;
 	
 	public Ball() {
 		x = 350;
@@ -65,9 +66,12 @@ public class Ball implements SpielelementIF{
 	}
 	
 	public boolean valSpielende(int x){
-		if(x <= maxBreiteLinks){			
-			return true;		
-		}else if (x >= maxBreiteRechts ){			
+		if(x <= maxBreiteLinks){	
+			scoreP1++;
+			return true;	
+			
+		}else if (x >= maxBreiteRechts ){	
+			scoreP2++;
 			return true;
 		
 		}else{
@@ -84,5 +88,13 @@ public class Ball implements SpielelementIF{
 			yGeschwindigkeit = -yGeschwindigkeit;
 		}		
 		return y;
+	}
+	
+	public int getScoreP1(){
+		return scoreP1;
+	}
+	
+	public int getScoreP2(){
+		return scoreP2;
 	}
 }

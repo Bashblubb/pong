@@ -22,8 +22,8 @@ public class MainGame extends Applet implements Runnable, KeyListener, ActionLis
 	JFrame meinFrame;     
     JButton butNeustart; 
     JButton butExit; 
-    JLabel txtScoreP1; 
-    JLabel txtScoreP2; 
+    JLabel lblScoreP1; 
+    JLabel lblScoreP2; 
 	
 	//Superklasse: Applet
 	@Override
@@ -97,11 +97,13 @@ public class MainGame extends Applet implements Runnable, KeyListener, ActionLis
 		for(;;){
 			sb.bewegung();	
 			if(startGame){
-				b.bewegung();
+				b.bewegung();			
 			}			
 			//wenn der Ball ans Spielfeldende kommt ist das Spiel vorbei bzw. die Schleife wird unterbrochen
 			if(b.spielende(sb.getY1(), sb.getY2(), sb.getX1(), sb.getX2())){
 				startGame = false;
+				scoreP1 += b.getScoreP1();
+				scoreP2 += b.getScoreP2();
 				spielZuEndeGui();
 				thread.interrupt();
 				break;				
@@ -122,20 +124,20 @@ public class MainGame extends Applet implements Runnable, KeyListener, ActionLis
 		meinFrame = new JFrame("Game Over");
 		butNeustart = new JButton("Nochmal");
 		butExit = new JButton("Exit");
-		txtScoreP1 = new JLabel(String.valueOf(scoreP1));
-		txtScoreP2 = new JLabel(String.valueOf(scoreP2));
+		lblScoreP1 = new JLabel(String.valueOf("Punkte Links: " + scoreP1));
+		lblScoreP2 = new JLabel(String.valueOf("Punkte Rechts: " +scoreP2));
 		meinFrame.setLayout(null);
 		meinFrame.setSize(400, 200);
 		meinFrame.setVisible(true);
 		butNeustart.setSize(200, 50);
 		butExit.setBounds(200, 100, 100, 50);
 		butNeustart.setBounds(50, 100, 100, 50);
-		txtScoreP1.setBounds(50, 20, 200, 50);
-		txtScoreP1.setBounds(150, 20, 200, 50);
+		lblScoreP1.setBounds(50, 20, 200, 50);
+		lblScoreP2.setBounds(200, 20, 200, 50);
 		meinFrame.add(butNeustart);
 		meinFrame.add(butExit);
-		meinFrame.add(txtScoreP1);
-		meinFrame.add(txtScoreP2);
+		meinFrame.add(lblScoreP1);
+		meinFrame.add(lblScoreP2);
 		butExit.addActionListener(this);
 		butNeustart.addActionListener(this);
 	}
